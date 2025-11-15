@@ -50,23 +50,25 @@ const Index = () => {
         backgroundPosition: 'center',
       }}
     >
-      {/* Left Side Gears - No overlap with center content */}
-      <div className="absolute left-0 top-0 bottom-0 w-64 flex flex-col justify-start pt-8 pl-4 space-y-2 pointer-events-none">
-        <Gear size={180} className="opacity-90" />
-        <Gear size={140} className="opacity-70 -ml-8" reverse />
-        <Gear size={100} className="opacity-80 ml-4" />
-        <Gear size={120} className="opacity-60 -ml-4 mt-8" reverse />
-        <Gear size={90} className="opacity-75 ml-8" />
-      </div>
+      {/* Left Side Gears - Fixed positions, spinning in place */}
+      <Gear size={120} className="top-8 left-8 opacity-85" />
+      <Gear size={90} className="top-24 left-24 opacity-70" reverse />
+      <Gear size={70} className="top-48 left-12 opacity-80" />
+      <Gear size={100} className="top-72 left-28 opacity-65" reverse />
+      <Gear size={80} className="bottom-64 left-16 opacity-75" />
+      <Gear size={95} className="bottom-48 left-32 opacity-70" reverse />
+      <Gear size={75} className="bottom-32 left-20 opacity-80" />
+      <Gear size={110} className="bottom-12 left-12 opacity-85" reverse />
       
-      {/* Right Side Gears - No overlap with center content */}
-      <div className="absolute right-0 top-0 bottom-0 w-64 flex flex-col justify-start pt-8 pr-4 space-y-2 pointer-events-none items-end">
-        <Gear size={200} className="opacity-90" reverse />
-        <Gear size={160} className="opacity-70 -mr-8" />
-        <Gear size={120} className="opacity-80 mr-4" reverse />
-        <Gear size={140} className="opacity-60 -mr-4 mt-8" />
-        <Gear size={95} className="opacity-75 mr-8" reverse />
-      </div>
+      {/* Right Side Gears - Fixed positions, spinning in place */}
+      <Gear size={130} className="top-4 right-12 opacity-85" reverse />
+      <Gear size={95} className="top-28 right-24 opacity-70" />
+      <Gear size={75} className="top-52 right-16 opacity-80" reverse />
+      <Gear size={105} className="top-76 right-32 opacity-65" />
+      <Gear size={85} className="bottom-64 right-20 opacity-75" reverse />
+      <Gear size={100} className="bottom-48 right-28 opacity-70" />
+      <Gear size={70} className="bottom-32 right-18 opacity-80" reverse />
+      <Gear size={120} className="bottom-8 right-16 opacity-85" />
 
       {/* Main Content - Centered, no gear overlap */}
       <div className="relative z-10 w-full max-w-4xl mx-auto space-y-8">
