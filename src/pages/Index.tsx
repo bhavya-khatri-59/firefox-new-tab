@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import Gear from "@/components/Gear";
 import LinkButton from "@/components/LinkButton";
 import { Input } from "@/components/ui/input";
-import firefoxBg from "@/assets/firefoxbg.png";
+import parchmentBg from "@/assets/parchment-bg.jpg";
 
 interface LinkConfig {
   url: string;
@@ -45,30 +45,31 @@ const Index = () => {
     <div 
       className="min-h-screen relative overflow-hidden flex flex-col items-center justify-center p-8"
       style={{
-        backgroundImage: `url(${firefoxBg})`,
+        backgroundImage: `url(${parchmentBg})`,
         backgroundSize: 'cover',
         backgroundPosition: 'center',
       }}
     >
-      {/* Animated Gears */}
-      <Gear size={180} className="absolute top-8 left-8 opacity-80" />
-      <Gear size={140} className="absolute top-16 left-32 opacity-60" reverse />
-      <Gear size={100} className="absolute top-32 left-20 opacity-70" />
+      {/* Left Side Gears - No overlap with center content */}
+      <div className="absolute left-0 top-0 bottom-0 w-64 flex flex-col justify-start pt-8 pl-4 space-y-2 pointer-events-none">
+        <Gear size={180} className="opacity-90" />
+        <Gear size={140} className="opacity-70 -ml-8" reverse />
+        <Gear size={100} className="opacity-80 ml-4" />
+        <Gear size={120} className="opacity-60 -ml-4 mt-8" reverse />
+        <Gear size={90} className="opacity-75 ml-8" />
+      </div>
       
-      <Gear size={200} className="absolute top-4 right-4 opacity-80" reverse />
-      <Gear size={160} className="absolute top-20 right-28 opacity-60" />
-      <Gear size={120} className="absolute top-24 right-12 opacity-70" reverse />
+      {/* Right Side Gears - No overlap with center content */}
+      <div className="absolute right-0 top-0 bottom-0 w-64 flex flex-col justify-start pt-8 pr-4 space-y-2 pointer-events-none items-end">
+        <Gear size={200} className="opacity-90" reverse />
+        <Gear size={160} className="opacity-70 -mr-8" />
+        <Gear size={120} className="opacity-80 mr-4" reverse />
+        <Gear size={140} className="opacity-60 -mr-4 mt-8" />
+        <Gear size={95} className="opacity-75 mr-8" reverse />
+      </div>
 
-      <Gear size={150} className="absolute bottom-8 left-12 opacity-80" reverse />
-      <Gear size={110} className="absolute bottom-20 left-28 opacity-60" />
-      <Gear size={90} className="absolute bottom-16 left-8 opacity-70" />
-
-      <Gear size={170} className="absolute bottom-12 right-16 opacity-80" />
-      <Gear size={130} className="absolute bottom-24 right-32 opacity-60" reverse />
-      <Gear size={95} className="absolute bottom-20 right-12 opacity-70" />
-
-      {/* Main Content */}
-      <div className="relative z-10 w-full max-w-4xl mx-auto space-y-12">
+      {/* Main Content - Centered, no gear overlap */}
+      <div className="relative z-10 w-full max-w-4xl mx-auto space-y-8">
         {/* Title */}
         <div className="text-center">
           {isEditingTitle ? (
@@ -91,7 +92,7 @@ const Index = () => {
 
         {/* Search Bar */}
         <div className="flex items-center justify-center">
-          <div className="w-full max-w-2xl h-16 bg-primary rounded-full border-4 border-primary/30 shadow-lg flex items-center px-6">
+          <div className="w-full max-w-3xl h-16 bg-primary rounded-full border-4 border-primary/30 shadow-lg flex items-center px-6">
             <Input
               type="text"
               placeholder="Search or enter address"
@@ -108,8 +109,8 @@ const Index = () => {
           </div>
         </div>
 
-        {/* Link Buttons */}
-        <div className="flex justify-center gap-6 flex-wrap">
+        {/* Link Buttons - Horizontal row matching reference design */}
+        <div className="flex justify-center gap-4">
           {links.map((link, index) => (
             <LinkButton
               key={index}
