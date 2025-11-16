@@ -117,13 +117,17 @@ const Index = () => {
                 if (e.key === 'Enter') {
                   const query = e.currentTarget.value;
                   if (query) {
-                    // Try to use browser's default search engine if available
+                    // Use browser's default search engine (works when loaded as Firefox extension)
                     const browserAPI = (window as any).browser;
-                    if (browserAPI?.search) {
-                      browserAPI.search.search({ query, tabId: undefined });
+                    if (browserAPI?.search?.search) {
+                      // Use default search engine in current tab
+                      browserAPI.search.search({ 
+                        query, 
+                        engine: undefined // undefined = default search engine
+                      });
                     } else {
-                      // Fallback to Google
-                      window.open(`https://www.google.com/search?q=${encodeURIComponent(query)}`, '_blank');
+                      // Fallback for preview/non-extension context - open in current tab to avoid security warning
+                      window.location.href = `https://www.google.com/search?q=${encodeURIComponent(query)}`;
                     }
                   }
                 }
