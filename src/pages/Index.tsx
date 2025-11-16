@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import Gear from "@/components/Gear";
 import LinkButton from "@/components/LinkButton";
+import SteampunkClock from "@/components/SteampunkClock";
 import { Input } from "@/components/ui/input";
 import parchmentBg from "@/assets/parchment-bg.jpg";
 
@@ -86,6 +87,11 @@ const Index = () => {
 
       {/* Main Content - Centered, no gear overlap */}
       <div className="relative z-10 w-full max-w-4xl mx-auto space-y-8">
+        {/* Clock */}
+        <div className="flex justify-center mb-4">
+          <SteampunkClock />
+        </div>
+        
         {/* Title */}
         <div className="text-center">
           {isEditingTitle ? (
