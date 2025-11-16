@@ -86,7 +86,7 @@ const Index = () => {
       <Gear size={120} className="bottom-8 right-16 opacity-85" onClick={playGearSound} />
 
       {/* Main Content - Centered, no gear overlap */}
-      <div className="relative z-10 w-full max-w-4xl mx-auto space-y-8">
+      <div className="relative z-10 w-full max-w-4xl mx-auto space-y-8 -mt-24">
         {/* Clock */}
         <div className="flex justify-center mb-4">
           <SteampunkClock />

@@ -23,7 +23,7 @@ const SteampunkClock = () => {
 
   return (
     <div className="relative flex items-center justify-center">
-      <svg width="200" height="200" viewBox="0 0 200 200" className="drop-shadow-2xl">
+      <svg width="100" height="100" viewBox="0 0 200 200" className="drop-shadow-2xl">
         {/* Outer decorative ring */}
         <circle
           cx="100"
