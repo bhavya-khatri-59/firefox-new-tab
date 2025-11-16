@@ -1,10 +1,19 @@
+import { useState } from "react";
+
 interface GearProps {
   size?: number;
   className?: string;
   reverse?: boolean;
+  onClick?: () => void;
 }
 
-const Gear = ({ size = 80, className = "", reverse = false }: GearProps) => {
+const Gear = ({ size = 80, className = "", reverse: initialReverse = false, onClick }: GearProps) => {
+  const [reverse, setReverse] = useState(initialReverse);
+
+  const handleClick = () => {
+    setReverse(!reverse);
+    onClick?.();
+  };
   const teeth = 16;
   const innerRadius = size * 0.3;
   const outerRadius = size * 0.42;
@@ -37,7 +46,10 @@ const Gear = ({ size = 80, className = "", reverse = false }: GearProps) => {
   }
 
   return (
-    <div className={`absolute ${reverse ? 'gear-animate-reverse' : 'gear-animate'} ${className}`}>
+    <div 
+      className={`absolute ${reverse ? 'gear-animate-reverse' : 'gear-animate'} ${className} cursor-pointer hover:opacity-100 transition-opacity`}
+      onClick={handleClick}
+    >
       <svg width={size} height={size} viewBox={`0 0 ${size} ${size}`}>
         <defs>
           <radialGradient id={`gearGradient-${size}-${reverse ? 'r' : 'f'}`}>

@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import Gear from "@/components/Gear";
 import LinkButton from "@/components/LinkButton";
 import { Input } from "@/components/ui/input";
@@ -20,6 +20,20 @@ const Index = () => {
     }
     return Array(8).fill({ url: "", icon: "", name: "" });
   });
+  
+  const gearSoundRef = useRef<HTMLAudioElement | null>(null);
+
+  useEffect(() => {
+    gearSoundRef.current = new Audio('data:audio/wav;base64,UklGRnoGAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQoGAACAf4CAgICAgICAgH+AgH9/gIB/gH+Af4B/f4B/f39/f39/f39+f35/fn9+fn5+fn5+fn1+fX59fn19fX19fX18fXx9fHx8fHx8e3x7fHt8e3t7e3t6e3p7ent6enp6enl6eXp5enl5eXl5eHl4eXh5eHh4eHh3eHd4d3h3d3d3dnd2d3Z3dnZ2dnZ1dnV2dXV1dXV0dXR1dHR0dHRzdHN0c3NzczNyc3JzcnJycnFycXJxcXFxcHFwcXBwcHBvb3Bvb29vbm5vbm5ubm1tbW1sbWxsbGxra2trawA=');
+  }, []);
+
+  const playGearSound = () => {
+    if (gearSoundRef.current) {
+      gearSoundRef.current.currentTime = 0;
+      gearSoundRef.current.volume = 0.3;
+      gearSoundRef.current.play().catch(() => {});
+    }
+  };
 
   useEffect(() => {
     const savedTitle = localStorage.getItem("firefox-title");
@@ -51,24 +65,24 @@ const Index = () => {
       }}
     >
       {/* Left Side Gears - Fixed positions, spinning in place */}
-      <Gear size={120} className="top-8 left-8 opacity-85" />
-      <Gear size={90} className="top-24 left-24 opacity-70" reverse />
-      <Gear size={70} className="top-48 left-12 opacity-80" />
-      <Gear size={100} className="top-72 left-28 opacity-65" reverse />
-      <Gear size={80} className="bottom-64 left-16 opacity-75" />
-      <Gear size={95} className="bottom-48 left-32 opacity-70" reverse />
-      <Gear size={75} className="bottom-32 left-20 opacity-80" />
-      <Gear size={110} className="bottom-12 left-12 opacity-85" reverse />
+      <Gear size={120} className="top-8 left-8 opacity-85" onClick={playGearSound} />
+      <Gear size={90} className="top-24 left-24 opacity-70" reverse onClick={playGearSound} />
+      <Gear size={70} className="top-48 left-12 opacity-80" onClick={playGearSound} />
+      <Gear size={100} className="top-72 left-28 opacity-65" reverse onClick={playGearSound} />
+      <Gear size={80} className="bottom-64 left-16 opacity-75" onClick={playGearSound} />
+      <Gear size={95} className="bottom-48 left-32 opacity-70" reverse onClick={playGearSound} />
+      <Gear size={75} className="bottom-32 left-20 opacity-80" onClick={playGearSound} />
+      <Gear size={110} className="bottom-12 left-12 opacity-85" reverse onClick={playGearSound} />
       
       {/* Right Side Gears - Fixed positions, spinning in place */}
-      <Gear size={130} className="top-4 right-12 opacity-85" reverse />
-      <Gear size={95} className="top-28 right-24 opacity-70" />
-      <Gear size={75} className="top-52 right-16 opacity-80" reverse />
-      <Gear size={105} className="top-76 right-32 opacity-65" />
-      <Gear size={85} className="bottom-64 right-20 opacity-75" reverse />
-      <Gear size={100} className="bottom-48 right-28 opacity-70" />
-      <Gear size={70} className="bottom-32 right-18 opacity-80" reverse />
-      <Gear size={120} className="bottom-8 right-16 opacity-85" />
+      <Gear size={130} className="top-4 right-12 opacity-85" reverse onClick={playGearSound} />
+      <Gear size={95} className="top-28 right-24 opacity-70" onClick={playGearSound} />
+      <Gear size={75} className="top-52 right-16 opacity-80" reverse onClick={playGearSound} />
+      <Gear size={105} className="top-76 right-32 opacity-65" onClick={playGearSound} />
+      <Gear size={85} className="bottom-64 right-20 opacity-75" reverse onClick={playGearSound} />
+      <Gear size={100} className="bottom-48 right-28 opacity-70" onClick={playGearSound} />
+      <Gear size={70} className="bottom-32 right-18 opacity-80" reverse onClick={playGearSound} />
+      <Gear size={120} className="bottom-8 right-16 opacity-85" onClick={playGearSound} />
 
       {/* Main Content - Centered, no gear overlap */}
       <div className="relative z-10 w-full max-w-4xl mx-auto space-y-8">
@@ -103,7 +117,14 @@ const Index = () => {
                 if (e.key === 'Enter') {
                   const query = e.currentTarget.value;
                   if (query) {
-                    window.open(`https://www.google.com/search?q=${encodeURIComponent(query)}`, '_blank');
+                    // Try to use browser's default search engine if available
+                    const browserAPI = (window as any).browser;
+                    if (browserAPI?.search) {
+                      browserAPI.search.search({ query, tabId: undefined });
+                    } else {
+                      // Fallback to Google
+                      window.open(`https://www.google.com/search?q=${encodeURIComponent(query)}`, '_blank');
+                    }
                   }
                 }
               }}
