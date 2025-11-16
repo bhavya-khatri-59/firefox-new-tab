@@ -23,6 +23,17 @@ const LinkButton = ({ url, icon, name, onUpdate }: LinkButtonProps) => {
     setIsOpen(false);
   };
 
+  const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setEditIcon(reader.result as string);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
   const getFavicon = () => {
     if (editIcon) return editIcon;
     if (editUrl) {
@@ -41,13 +52,13 @@ const LinkButton = ({ url, icon, name, onUpdate }: LinkButtonProps) => {
       <div className="relative group">
         <Button
           variant="ghost"
-          className="w-24 h-24 rounded-3xl bg-primary hover:bg-secondary transition-all duration-300 p-0 overflow-hidden border-2 border-primary/20 hover:border-accent/50 hover:scale-105"
+          className="w-24 h-24 rounded-3xl bg-primary hover:bg-secondary transition-all duration-300 p-4 overflow-hidden border-2 border-primary/20 hover:border-accent/50 hover:scale-105"
           onClick={() => url && window.open(url, "_blank")}
         >
           {getFavicon() ? (
-            <img src={getFavicon()} alt={name} className="w-12 h-12" />
+            <img src={getFavicon()} alt={name} className="w-full h-full object-contain" />
           ) : (
-            <div className="w-12 h-12 flex items-center justify-center text-primary-foreground text-2xl">+</div>
+            <div className="w-full h-full flex items-center justify-center text-primary-foreground text-2xl">+</div>
           )}
         </Button>
         <DialogTrigger asChild>
@@ -84,13 +95,25 @@ const LinkButton = ({ url, icon, name, onUpdate }: LinkButtonProps) => {
             />
           </div>
           <div className="space-y-2">
-            <Label htmlFor="icon">Icon URL (optional)</Label>
-            <Input
-              id="icon"
-              value={editIcon}
-              onChange={(e) => setEditIcon(e.target.value)}
-              placeholder="Leave empty to use favicon"
-            />
+            <Label htmlFor="icon">Icon</Label>
+            <div className="space-y-2">
+              <Input
+                id="icon"
+                value={editIcon}
+                onChange={(e) => setEditIcon(e.target.value)}
+                placeholder="Enter icon URL or upload file below"
+              />
+              <div className="flex items-center gap-2">
+                <Input
+                  id="icon-file"
+                  type="file"
+                  accept="image/*"
+                  onChange={handleFileUpload}
+                  className="cursor-pointer"
+                />
+              </div>
+              <p className="text-xs text-muted-foreground">Leave empty to use website favicon</p>
+            </div>
           </div>
           <Button onClick={handleSave} className="w-full">Save</Button>
         </div>
