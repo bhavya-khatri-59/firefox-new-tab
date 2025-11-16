@@ -18,6 +18,14 @@ const LinkButton = ({ url, icon, name, onUpdate }: LinkButtonProps) => {
   const [editName, setEditName] = useState(name);
   const [isOpen, setIsOpen] = useState(false);
 
+  const formatUrl = (inputUrl: string) => {
+    if (!inputUrl) return "";
+    if (inputUrl.startsWith("http://") || inputUrl.startsWith("https://")) {
+      return inputUrl;
+    }
+    return `https://${inputUrl}`;
+  };
+
   const handleSave = () => {
     onUpdate(editUrl, editIcon, editName);
     setIsOpen(false);
@@ -53,7 +61,7 @@ const LinkButton = ({ url, icon, name, onUpdate }: LinkButtonProps) => {
         <Button
           variant="ghost"
           className="w-24 h-24 rounded-3xl bg-primary hover:bg-secondary transition-all duration-300 p-4 overflow-hidden border-2 border-primary/20 hover:border-accent/50 hover:scale-105"
-          onClick={() => url && window.open(url, "_blank")}
+          onClick={() => url && window.open(formatUrl(url), "_blank")}
         >
           {getFavicon() ? (
             <img src={getFavicon()} alt={name} className="w-full h-full object-contain" />
