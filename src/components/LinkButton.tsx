@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { Settings } from "lucide-react";
 
 interface LinkButtonProps {
@@ -57,28 +58,35 @@ const LinkButton = ({ url, icon, name, onUpdate }: LinkButtonProps) => {
 
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
-      <div className="relative group">
-        <Button
-          variant="ghost"
-          className="w-24 h-24 rounded-3xl bg-primary hover:bg-secondary transition-all duration-300 p-4 overflow-hidden border-2 border-primary/20 hover:border-accent/50 hover:scale-105"
-          onClick={() => url && window.open(formatUrl(url), "_blank")}
-        >
-          {getFavicon() ? (
-            <img src={getFavicon()} alt={name} className="w-full h-full object-contain" />
-          ) : (
-            <div className="w-full h-full flex items-center justify-center text-primary-foreground text-2xl">+</div>
-          )}
-        </Button>
-        <DialogTrigger asChild>
-          <Button
-            size="icon"
-            variant="secondary"
-            className="absolute -top-2 -right-2 w-6 h-6 rounded-full opacity-0 group-hover:opacity-100 transition-opacity"
-          >
-            <Settings className="w-3 h-3" />
-          </Button>
-        </DialogTrigger>
-      </div>
+      <TooltipProvider>
+        <div className="relative group">
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <Button
+                variant="ghost"
+                className="w-24 h-24 rounded-3xl bg-primary hover:bg-secondary transition-all duration-300 p-4 overflow-hidden border-2 border-primary/20 hover:border-accent/50 hover:scale-105"
+                onClick={() => url && window.open(formatUrl(url), "_blank")}
+              >
+                {getFavicon() ? (
+                  <img src={getFavicon()} alt={name} className="w-full h-full object-contain" />
+                ) : (
+                  <div className="w-full h-full flex items-center justify-center text-primary-foreground text-2xl">+</div>
+                )}
+              </Button>
+            </TooltipTrigger>
+            {name && <TooltipContent><p>{name}</p></TooltipContent>}
+          </Tooltip>
+          <DialogTrigger asChild>
+            <Button
+              size="icon"
+              variant="secondary"
+              className="absolute -top-2 -right-2 w-6 h-6 rounded-full opacity-0 group-hover:opacity-100 transition-opacity"
+            >
+              <Settings className="w-3 h-3" />
+            </Button>
+          </DialogTrigger>
+        </div>
+      </TooltipProvider>
       <DialogContent>
         <DialogHeader>
           <DialogTitle>Configure Link</DialogTitle>
