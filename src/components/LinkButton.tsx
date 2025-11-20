@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
@@ -19,6 +19,12 @@ const LinkButton = ({ url, icon, name, onUpdate }: LinkButtonProps) => {
   const [editName, setEditName] = useState(name);
   const [isOpen, setIsOpen] = useState(false);
 
+  useEffect(() => {
+    setEditUrl(url || "");
+    setEditIcon(icon || "");
+    setEditName(name || "");
+  }, [url, icon, name]);
+
   const formatUrl = (inputUrl: string) => {
     if (!inputUrl) return "";
     if (inputUrl.startsWith("http://") || inputUrl.startsWith("https://")) {
@@ -33,12 +39,16 @@ const LinkButton = ({ url, icon, name, onUpdate }: LinkButtonProps) => {
   };
 
   const handleDelete = () => {
+    setEditUrl("");
+    setEditIcon("");
+    setEditName("");
     onUpdate("", "", "");
     setIsOpen(false);
   };
 
   const handleClearIcon = () => {
     setEditIcon("");
+    onUpdate(editUrl, "", editName);
   };
 
   const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -53,10 +63,10 @@ const LinkButton = ({ url, icon, name, onUpdate }: LinkButtonProps) => {
   };
 
   const getFavicon = () => {
-    if (editIcon) return editIcon;
-    if (editUrl) {
+    if (icon) return icon;
+    if (url) {
       try {
-        const domain = new URL(editUrl).hostname;
+        const domain = new URL(url).hostname;
         return `https://www.google.com/s2/favicons?domain=${domain}&sz=64`;
       } catch {
         return "";
