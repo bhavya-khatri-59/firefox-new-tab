@@ -3,7 +3,7 @@ import Gear from "@/components/Gear";
 import LinkButton from "@/components/LinkButton";
 import SteampunkClock from "@/components/SteampunkClock";
 import { Input } from "@/components/ui/input";
-import parchmentBg from "@/assets/parchment-bg.jpg";
+import parchmentBg from "@/assets/parchment-bg-2.jpg";
 
 interface LinkConfig {
   url: string;
