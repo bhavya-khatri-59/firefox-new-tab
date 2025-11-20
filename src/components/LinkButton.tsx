@@ -4,7 +4,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from 
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
-import { Settings } from "lucide-react";
+import { Settings, Trash2, X } from "lucide-react";
 
 interface LinkButtonProps {
   url: string;
@@ -30,6 +30,15 @@ const LinkButton = ({ url, icon, name, onUpdate }: LinkButtonProps) => {
   const handleSave = () => {
     onUpdate(editUrl, editIcon, editName);
     setIsOpen(false);
+  };
+
+  const handleDelete = () => {
+    onUpdate("", "", "");
+    setIsOpen(false);
+  };
+
+  const handleClearIcon = () => {
+    setEditIcon("");
   };
 
   const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -113,12 +122,26 @@ const LinkButton = ({ url, icon, name, onUpdate }: LinkButtonProps) => {
           <div className="space-y-2">
             <Label htmlFor="icon">Icon</Label>
             <div className="space-y-2">
-              <Input
-                id="icon"
-                value={editIcon}
-                onChange={(e) => setEditIcon(e.target.value)}
-                placeholder="Enter icon URL or upload file below"
-              />
+              <div className="flex gap-2">
+                <Input
+                  id="icon"
+                  value={editIcon}
+                  onChange={(e) => setEditIcon(e.target.value)}
+                  placeholder="Enter icon URL or upload file below"
+                  className="flex-1"
+                />
+                {editIcon && (
+                  <Button
+                    type="button"
+                    variant="outline"
+                    size="icon"
+                    onClick={handleClearIcon}
+                    className="shrink-0"
+                  >
+                    <X className="w-4 h-4" />
+                  </Button>
+                )}
+              </div>
               <div className="flex items-center gap-2">
                 <Input
                   id="icon-file"
@@ -131,7 +154,12 @@ const LinkButton = ({ url, icon, name, onUpdate }: LinkButtonProps) => {
               <p className="text-xs text-muted-foreground">Leave empty to use website favicon</p>
             </div>
           </div>
-          <Button onClick={handleSave} className="w-full">Save</Button>
+          <div className="flex gap-2">
+            <Button onClick={handleSave} className="flex-1">Save</Button>
+            <Button onClick={handleDelete} variant="destructive" size="icon">
+              <Trash2 className="w-4 h-4" />
+            </Button>
+          </div>
         </div>
       </DialogContent>
     </Dialog>
