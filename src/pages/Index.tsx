@@ -54,6 +54,7 @@ const Index = () => {
     const newLinks = [...links];
     newLinks[index] = { url, icon, name };
     setLinks(newLinks);
+    localStorage.setItem("firefox-links", JSON.stringify(newLinks));
   };
 
   return (
