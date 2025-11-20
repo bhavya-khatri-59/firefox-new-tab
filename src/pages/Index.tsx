@@ -99,7 +99,7 @@ const Index = () => {
               value={title}
               onChange={(e) => handleTitleChange(e.target.value)}
               onBlur={() => setIsEditingTitle(false)}
-              className="text-7xl font-bold text-center bg-transparent border-none text-foreground focus-visible:ring-0 focus-visible:ring-offset-0"
+              className="!text-7xl font-bold text-center bg-transparent border-none text-foreground focus-visible:ring-0 focus-visible:ring-offset-0 h-auto"
               autoFocus
             />
           ) : (
