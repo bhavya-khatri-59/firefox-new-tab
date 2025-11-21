@@ -117,7 +117,7 @@ const LinkButton = ({ url, icon, name, onUpdate }: LinkButtonProps) => {
               id="name"
               value={editName}
               onChange={(e) => setEditName(e.target.value)}
-              placeholder="Google"
+              placeholder="Name"
             />
           </div>
           <div className="space-y-2">
@@ -126,7 +126,7 @@ const LinkButton = ({ url, icon, name, onUpdate }: LinkButtonProps) => {
               id="url"
               value={editUrl}
               onChange={(e) => setEditUrl(e.target.value)}
-              placeholder="https://google.com"
+              placeholder="https://example.com"
             />
           </div>
           <div className="space-y-2">

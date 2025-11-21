@@ -2,7 +2,7 @@
   "manifest_version": 2,
   "name": "Firefox Steampunk New Tab",
   "version": "1.0",
-  "description": "A beautiful steampunk-themed new tab page with configurable links and animated gears",
+  "description": "A steam-punked new tab for firefox",
   "chrome_url_overrides": {
     "newtab": "index.html"
   },
