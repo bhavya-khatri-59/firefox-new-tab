@@ -171,11 +171,11 @@ const Index = () => {
 
         {/* Search Bar */}
         <div className="flex items-center justify-center">
-          <div className="w-full max-w-3xl h-16 bg-primary rounded-full border-4 border-primary/30 shadow-lg flex items-center px-6">
+          <div className="w-full max-w-3xl h-16 bg-accent rounded-full border-4 border-accent/30 shadow-lg flex items-center px-6">
             <Input
               type="text"
               placeholder="Search or enter address"
-              className="flex-1 bg-transparent border-none text-primary-foreground placeholder:text-primary-foreground/60 text-lg focus-visible:ring-0 focus-visible:ring-offset-0"
+              className="flex-1 bg-transparent border-none text-accent-foreground placeholder:text-accent-foreground/60 text-lg focus-visible:ring-0 focus-visible:ring-offset-0"
               onKeyDown={(e) => {
                 if (e.key === 'Enter') {
                   const query = e.currentTarget.value;

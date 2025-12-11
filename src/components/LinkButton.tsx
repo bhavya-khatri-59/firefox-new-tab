@@ -83,13 +83,13 @@ const LinkButton = ({ url, icon, name, onUpdate }: LinkButtonProps) => {
             <TooltipTrigger asChild>
               <Button
                 variant="ghost"
-                className="w-24 h-24 rounded-3xl bg-primary hover:bg-secondary transition-all duration-300 p-4 overflow-hidden border-2 border-primary/20 hover:border-accent/50 hover:scale-105"
+                className="w-24 h-24 rounded-3xl bg-accent hover:bg-accent/80 transition-all duration-300 p-4 overflow-hidden border-2 border-accent/20 hover:border-accent/50 hover:scale-105"
                 onClick={() => url && (window.location.href = formatUrl(url))}
               >
                 {getFavicon() ? (
                   <img src={getFavicon()} alt={name} className="w-full h-full object-contain" />
                 ) : (
-                  <div className="w-full h-full flex items-center justify-center text-primary-foreground text-2xl">+</div>
+                  <div className="w-full h-full flex items-center justify-center text-accent-foreground text-2xl">+</div>
                 )}
               </Button>
             </TooltipTrigger>

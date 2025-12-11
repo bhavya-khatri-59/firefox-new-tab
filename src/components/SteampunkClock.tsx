@@ -30,7 +30,7 @@ const SteampunkClock = () => {
           cy="100"
           r="95"
           fill="none"
-          stroke="hsl(var(--primary))"
+          stroke="hsl(var(--accent))"
           strokeWidth="8"
           opacity="0.3"
         />
@@ -40,8 +40,8 @@ const SteampunkClock = () => {
           cx="100"
           cy="100"
           r="90"
-          fill="hsl(var(--primary))"
-          stroke="hsl(var(--accent))"
+          fill="hsl(var(--accent))"
+          stroke="hsl(var(--primary))"
           strokeWidth="4"
         />
         
@@ -51,7 +51,7 @@ const SteampunkClock = () => {
           cy="100"
           r="85"
           fill="none"
-          stroke="hsl(var(--accent))"
+          stroke="hsl(var(--primary))"
           strokeWidth="2"
           opacity="0.5"
         />
@@ -70,7 +70,7 @@ const SteampunkClock = () => {
                 y1={100 + 75 * Math.sin(angle)}
                 x2={100 + 80 * Math.cos(angle)}
                 y2={100 + 80 * Math.sin(angle)}
-                stroke="hsl(var(--primary-foreground))"
+                stroke="hsl(var(--accent-foreground))"
                 strokeWidth="3"
                 strokeLinecap="round"
               />
@@ -80,7 +80,7 @@ const SteampunkClock = () => {
                 y={y}
                 textAnchor="middle"
                 dominantBaseline="middle"
-                fill="hsl(var(--primary-foreground))"
+                fill="hsl(var(--accent-foreground))"
                 fontSize="14"
                 fontFamily="serif"
                 fontWeight="bold"
@@ -102,7 +102,7 @@ const SteampunkClock = () => {
                 y1={100 + 78 * Math.sin(angle)}
                 x2={100 + 80 * Math.cos(angle)}
                 y2={100 + 80 * Math.sin(angle)}
-                stroke="hsl(var(--primary-foreground))"
+                stroke="hsl(var(--accent-foreground))"
                 strokeWidth="1"
                 opacity="0.6"
               />
@@ -117,7 +117,7 @@ const SteampunkClock = () => {
           y1="100"
           x2={100 + 40 * Math.sin(hourAngle * (Math.PI / 180))}
           y2={100 - 40 * Math.cos(hourAngle * (Math.PI / 180))}
-          stroke="hsl(var(--primary-foreground))"
+          stroke="hsl(var(--accent-foreground))"
           strokeWidth="6"
           strokeLinecap="round"
           style={{
@@ -131,7 +131,7 @@ const SteampunkClock = () => {
           y1="100"
           x2={100 + 55 * Math.sin(minuteAngle * (Math.PI / 180))}
           y2={100 - 55 * Math.cos(minuteAngle * (Math.PI / 180))}
-          stroke="hsl(var(--primary-foreground))"
+          stroke="hsl(var(--accent-foreground))"
           strokeWidth="4"
           strokeLinecap="round"
           style={{
@@ -145,7 +145,7 @@ const SteampunkClock = () => {
           y1="100"
           x2={100 + 65 * Math.sin(secondAngle * (Math.PI / 180))}
           y2={100 - 65 * Math.cos(secondAngle * (Math.PI / 180))}
-          stroke="hsl(var(--accent))"
+          stroke="hsl(var(--primary))"
           strokeWidth="2"
           strokeLinecap="round"
         />
@@ -155,15 +155,15 @@ const SteampunkClock = () => {
           cx="100"
           cy="100"
           r="8"
-          fill="hsl(var(--accent))"
-          stroke="hsl(var(--primary-foreground))"
+          fill="hsl(var(--primary))"
+          stroke="hsl(var(--accent-foreground))"
           strokeWidth="2"
         />
         <circle
           cx="100"
           cy="100"
           r="3"
-          fill="hsl(var(--primary-foreground))"
+          fill="hsl(var(--accent-foreground))"
         />
 
         {/* Decorative corner screws */}
@@ -176,8 +176,8 @@ const SteampunkClock = () => {
                 cx={x}
                 cy={y}
                 r="4"
-                fill="hsl(var(--accent))"
-                stroke="hsl(var(--primary-foreground))"
+                fill="hsl(var(--primary))"
+                stroke="hsl(var(--accent-foreground))"
                 strokeWidth="1"
               />
               <line
@@ -185,7 +185,7 @@ const SteampunkClock = () => {
                 y1={y}
                 x2={x + 2}
                 y2={y}
-                stroke="hsl(var(--primary-foreground))"
+                stroke="hsl(var(--accent-foreground))"
                 strokeWidth="1"
               />
             </g>
