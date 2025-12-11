@@ -106,7 +106,7 @@ const LinkButton = ({ url, icon, name, onUpdate }: LinkButtonProps) => {
           </DialogTrigger>
         </div>
       </TooltipProvider>
-      <DialogContent>
+      <DialogContent className="bg-primary border-accent/50">
         <DialogHeader>
           <DialogTitle>Configure Link</DialogTitle>
         </DialogHeader>
