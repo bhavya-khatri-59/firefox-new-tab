@@ -53,8 +53,8 @@ const Gear = ({ size = 80, className = "", reverse: initialReverse = false, onCl
       <svg width={size} height={size} viewBox={`0 0 ${size} ${size}`}>
         <defs>
           <radialGradient id={`gearGradient-${size}-${reverse ? 'r' : 'f'}`}>
-            <stop offset="20%" stopColor="hsl(35, 28%, 62%)" />
-            <stop offset="100%" stopColor="hsl(30, 22%, 38%)" />
+            <stop offset="20%" stopColor="hsl(var(--primary) / 0.7)" />
+            <stop offset="100%" stopColor="hsl(var(--primary))" />
           </radialGradient>
           <filter id={`shadow-${size}`}>
             <feDropShadow dx="1" dy="1" stdDeviation="1.5" floodOpacity="0.35"/>
@@ -65,7 +65,7 @@ const Gear = ({ size = 80, className = "", reverse: initialReverse = false, onCl
         <polygon 
           points={points.join(' ')} 
           fill={`url(#gearGradient-${size}-${reverse ? 'r' : 'f'})`}
-          stroke="hsl(30, 18%, 28%)" 
+          stroke="hsl(var(--accent))" 
           strokeWidth="1.5"
           filter={`url(#shadow-${size})`}
         />
@@ -75,8 +75,8 @@ const Gear = ({ size = 80, className = "", reverse: initialReverse = false, onCl
           cx={size / 2} 
           cy={size / 2} 
           r={innerRadius} 
-          fill="hsl(30, 22%, 48%)" 
-          stroke="hsl(30, 18%, 28%)" 
+          fill="hsl(var(--primary) / 0.8)" 
+          stroke="hsl(var(--accent))" 
           strokeWidth="2"
         />
         
@@ -85,8 +85,8 @@ const Gear = ({ size = 80, className = "", reverse: initialReverse = false, onCl
           cx={size / 2} 
           cy={size / 2} 
           r={innerRadius * 0.35} 
-          fill="hsl(30, 15%, 22%)" 
-          stroke="hsl(30, 12%, 18%)" 
+          fill="hsl(var(--primary))" 
+          stroke="hsl(var(--accent) / 0.7)" 
           strokeWidth="2"
         />
         
@@ -104,7 +104,7 @@ const Gear = ({ size = 80, className = "", reverse: initialReverse = false, onCl
               y1={y1}
               x2={x2}
               y2={y2}
-              stroke="hsl(30, 18%, 28%)"
+              stroke="hsl(var(--accent))"
               strokeWidth="1.5"
             />
           );

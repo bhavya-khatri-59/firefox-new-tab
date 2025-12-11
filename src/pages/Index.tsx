@@ -154,12 +154,14 @@ const Index = () => {
               value={title}
               onChange={(e) => handleTitleChange(e.target.value)}
               onBlur={() => setIsEditingTitle(false)}
-              className="!text-7xl font-bold text-center bg-transparent border-none text-foreground focus-visible:ring-0 focus-visible:ring-offset-0 h-auto"
+              className="!text-7xl font-bold text-center bg-transparent border-none focus-visible:ring-0 focus-visible:ring-offset-0 h-auto"
+              style={{ color: 'hsl(var(--accent))' }}
               autoFocus
             />
           ) : (
             <h1
-              className="text-7xl font-bold cursor-pointer hover:text-accent transition-colors"
+              className="text-7xl font-bold cursor-pointer transition-colors"
+              style={{ color: 'hsl(var(--accent))' }}
               onClick={() => setIsEditingTitle(true)}
             >
               {title}
