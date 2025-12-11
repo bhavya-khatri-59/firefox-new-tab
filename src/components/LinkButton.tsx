@@ -84,7 +84,7 @@ const LinkButton = ({ url, icon, name, onUpdate }: LinkButtonProps) => {
               <Button
                 variant="ghost"
                 className="w-24 h-24 rounded-3xl bg-primary hover:bg-secondary transition-all duration-300 p-4 overflow-hidden border-2 border-primary/20 hover:border-accent/50 hover:scale-105"
-                onClick={() => url && window.open(formatUrl(url), "_blank")}
+                onClick={() => url && (window.location.href = formatUrl(url))}
               >
                 {getFavicon() ? (
                   <img src={getFavicon()} alt={name} className="w-full h-full object-contain" />
