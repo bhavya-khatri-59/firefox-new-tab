@@ -12,8 +12,8 @@ interface CustomTheme {
 }
 
 const defaultTheme: CustomTheme = {
-  mainColor: "#1a1a1a", // Near black
-  accentColor: "#2d2519", // Dark blackish-brown
+  mainColor: "#000000", // pure black for main structural elements
+  accentColor: "#1a1a1a", // blackish for accent elements
   bgImage: "",
 };
 
@@ -25,7 +25,24 @@ const SettingsPanel = ({ onThemeChange }: SettingsPanelProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const [theme, setTheme] = useState<CustomTheme>(() => {
     const saved = localStorage.getItem("firefox-theme");
-    return saved ? JSON.parse(saved) : defaultTheme;
+    if (saved) {
+      try {
+        const parsed = JSON.parse(saved) as CustomTheme;
+        // Migrate old brown default theme to new black defaults
+        if (
+          parsed.mainColor === "#2d2519" &&
+          (parsed.accentColor === "#a6784a" || parsed.accentColor === "#2d2519")
+        ) {
+          const migrated = { ...parsed, mainColor: "#000000", accentColor: "#1a1a1a" };
+          localStorage.setItem("firefox-theme", JSON.stringify(migrated));
+          return migrated;
+        }
+        return parsed;
+      } catch {
+        return defaultTheme;
+      }
+    }
+    return defaultTheme;
   });
 
   useEffect(() => {
