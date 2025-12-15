@@ -12,8 +12,8 @@ interface CustomTheme {
 }
 
 const defaultTheme: CustomTheme = {
-  mainColor: "#2d2519", // HSL 30 20% 12% converted
-  accentColor: "#a6784a", // HSL 30 40% 45% converted
+  mainColor: "#1a1a1a", // Near black
+  accentColor: "#2d2519", // Dark blackish-brown
   bgImage: "",
 };
 
