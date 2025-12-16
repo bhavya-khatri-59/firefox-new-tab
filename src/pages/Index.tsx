@@ -2,7 +2,6 @@ import { useState, useEffect, useRef } from "react";
 import Gear from "@/components/Gear";
 import LinkButton from "@/components/LinkButton";
 import SteampunkClock from "@/components/SteampunkClock";
-import SettingsPanel from "@/components/SettingsPanel";
 import { Input } from "@/components/ui/input";
 import parchmentBg from "@/assets/parchment-bg-2.jpg";
 
@@ -10,12 +9,6 @@ interface LinkConfig {
   url: string;
   icon: string;
   name: string;
-}
-
-interface CustomTheme {
-  mainColor: string;
-  accentColor: string;
-  bgImage: string;
 }
 
 const Index = () => {
@@ -28,7 +21,6 @@ const Index = () => {
     }
     return Array(8).fill({ url: "", icon: "", name: "" });
   });
-  const [customTheme, setCustomTheme] = useState<CustomTheme | null>(null);
   
   const gearSoundRef = useRef<HTMLAudioElement | null>(null);
 
@@ -65,61 +57,15 @@ const Index = () => {
     localStorage.setItem("firefox-links", JSON.stringify(newLinks));
   };
 
-  // Convert hex to HSL for CSS variables
-  const hexToHsl = (hex: string): string => {
-    const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
-    if (!result) return "";
-    
-    let r = parseInt(result[1], 16) / 255;
-    let g = parseInt(result[2], 16) / 255;
-    let b = parseInt(result[3], 16) / 255;
-    
-    const max = Math.max(r, g, b);
-    const min = Math.min(r, g, b);
-    let h = 0, s = 0;
-    const l = (max + min) / 2;
-
-    if (max !== min) {
-      const d = max - min;
-      s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
-      switch (max) {
-        case r: h = ((g - b) / d + (g < b ? 6 : 0)) / 6; break;
-        case g: h = ((b - r) / d + 2) / 6; break;
-        case b: h = ((r - g) / d + 4) / 6; break;
-      }
-    }
-    
-    return `${Math.round(h * 360)} ${Math.round(s * 100)}% ${Math.round(l * 100)}%`;
-  };
-
-  const handleThemeChange = (theme: CustomTheme) => {
-    setCustomTheme(theme);
-    // Apply CSS custom properties for dynamic theming
-    const mainHsl = hexToHsl(theme.mainColor);
-    const accentHsl = hexToHsl(theme.accentColor);
-    
-    if (mainHsl) {
-      document.documentElement.style.setProperty('--primary', mainHsl);
-      document.documentElement.style.setProperty('--secondary', mainHsl);
-    }
-    if (accentHsl) {
-      document.documentElement.style.setProperty('--accent', accentHsl);
-      document.documentElement.style.setProperty('--ring', accentHsl);
-    }
-  };
-
-  const bgImage = customTheme?.bgImage || parchmentBg;
-
   return (
     <div 
       className="min-h-screen relative overflow-hidden flex flex-col items-center justify-center p-8"
       style={{
-        backgroundImage: `url(${bgImage})`,
+        backgroundImage: `url(${parchmentBg})`,
         backgroundSize: 'cover',
         backgroundPosition: 'center',
       }}
     >
-      <SettingsPanel onThemeChange={handleThemeChange} />
       {/* Left Side Gears - Fixed positions, spinning in place */}
       <Gear size={120} className="top-8 left-8 opacity-85" onClick={playGearSound} />
       <Gear size={90} className="top-24 left-24 opacity-70" reverse onClick={playGearSound} />
@@ -154,14 +100,12 @@ const Index = () => {
               value={title}
               onChange={(e) => handleTitleChange(e.target.value)}
               onBlur={() => setIsEditingTitle(false)}
-              className="!text-7xl font-bold text-center bg-transparent border-none focus-visible:ring-0 focus-visible:ring-offset-0 h-auto"
-              style={{ color: 'hsl(var(--accent))' }}
+              className="!text-7xl font-bold text-center bg-transparent border-none text-foreground focus-visible:ring-0 focus-visible:ring-offset-0 h-auto"
               autoFocus
             />
           ) : (
             <h1
-              className="text-7xl font-bold cursor-pointer transition-colors"
-              style={{ color: 'hsl(var(--accent))' }}
+              className="text-7xl font-bold cursor-pointer hover:text-accent transition-colors"
               onClick={() => setIsEditingTitle(true)}
             >
               {title}
@@ -171,11 +115,11 @@ const Index = () => {
 
         {/* Search Bar */}
         <div className="flex items-center justify-center">
-          <div className="w-full max-w-3xl h-16 bg-accent rounded-full border-4 border-accent/30 shadow-lg flex items-center px-6">
+          <div className="w-full max-w-3xl h-16 bg-primary rounded-full border-4 border-primary/30 shadow-lg flex items-center px-6">
             <Input
               type="text"
               placeholder="Search or enter address"
-              className="flex-1 bg-transparent border-none text-accent-foreground placeholder:text-accent-foreground/60 text-lg focus-visible:ring-0 focus-visible:ring-offset-0"
+              className="flex-1 bg-transparent border-none text-primary-foreground placeholder:text-primary-foreground/60 text-lg focus-visible:ring-0 focus-visible:ring-offset-0"
               onKeyDown={(e) => {
                 if (e.key === 'Enter') {
                   const query = e.currentTarget.value;
