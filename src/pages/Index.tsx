@@ -98,9 +98,9 @@ const Index = () => {
           <Button
             variant="ghost"
             size="icon"
-            className="absolute top-4 right-4 z-20 bg-primary/80 hover:bg-primary text-primary-foreground rounded-full"
+            className="absolute top-4 right-4 z-20 bg-primary hover:bg-primary/80 text-primary-foreground rounded-full w-12 h-12 shadow-lg border-2 border-primary-foreground/20"
           >
-            <Settings className="w-5 h-5" />
+            <Settings className="w-6 h-6" />
           </Button>
         </DialogTrigger>
         <DialogContent>
