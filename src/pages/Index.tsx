@@ -3,6 +3,10 @@ import Gear from "@/components/Gear";
 import LinkButton from "@/components/LinkButton";
 import SteampunkClock from "@/components/SteampunkClock";
 import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import { Label } from "@/components/ui/label";
+import { Settings } from "lucide-react";
 import parchmentBg from "@/assets/parchment-bg-2.jpg";
 
 interface LinkConfig {
@@ -21,6 +25,10 @@ const Index = () => {
     }
     return Array(8).fill({ url: "", icon: "", name: "" });
   });
+  const [customBg, setCustomBg] = useState<string>(() => {
+    return localStorage.getItem("firefox-bg") || "";
+  });
+  const [bgInput, setBgInput] = useState("");
   
   const gearSoundRef = useRef<HTMLAudioElement | null>(null);
 
@@ -57,15 +65,70 @@ const Index = () => {
     localStorage.setItem("firefox-links", JSON.stringify(newLinks));
   };
 
+  const handleBgSave = (bgUrl: string) => {
+    setCustomBg(bgUrl);
+    localStorage.setItem("firefox-bg", bgUrl);
+  };
+
+  const handleBgFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        const result = reader.result as string;
+        setBgInput(result);
+        handleBgSave(result);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
   return (
     <div 
       className="min-h-screen relative overflow-hidden flex flex-col items-center justify-center p-8"
       style={{
-        backgroundImage: `url(${parchmentBg})`,
+        backgroundImage: `url(${customBg || parchmentBg})`,
         backgroundSize: 'cover',
         backgroundPosition: 'center',
       }}
     >
+      {/* Settings Button */}
+      <Dialog>
+        <DialogTrigger asChild>
+          <Button
+            variant="ghost"
+            size="icon"
+            className="absolute top-4 right-4 z-20 bg-primary/80 hover:bg-primary text-primary-foreground rounded-full"
+          >
+            <Settings className="w-5 h-5" />
+          </Button>
+        </DialogTrigger>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>Settings</DialogTitle>
+          </DialogHeader>
+          <div className="space-y-4 py-4">
+            <div className="space-y-2">
+              <Label>Background Image</Label>
+              <Input
+                value={bgInput}
+                onChange={(e) => setBgInput(e.target.value)}
+                placeholder="Enter image URL"
+              />
+              <Input
+                type="file"
+                accept="image/*"
+                onChange={handleBgFileUpload}
+                className="cursor-pointer"
+              />
+              <div className="flex gap-2">
+                <Button onClick={() => handleBgSave(bgInput)} className="flex-1">Apply URL</Button>
+                <Button variant="outline" onClick={() => { handleBgSave(""); setBgInput(""); }}>Reset</Button>
+              </div>
+            </div>
+          </div>
+        </DialogContent>
+      </Dialog>
       {/* Left Side Gears - Fixed positions, spinning in place */}
       <Gear size={120} className="top-8 left-8 opacity-85" onClick={playGearSound} />
       <Gear size={90} className="top-24 left-24 opacity-70" reverse onClick={playGearSound} />
