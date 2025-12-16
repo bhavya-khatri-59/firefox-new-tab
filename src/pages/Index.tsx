@@ -29,6 +29,7 @@ const Index = () => {
     return localStorage.getItem("firefox-bg") || "";
   });
   const [bgInput, setBgInput] = useState("");
+  const [settingsOpen, setSettingsOpen] = useState(false);
   
   const gearSoundRef = useRef<HTMLAudioElement | null>(null);
 
@@ -93,7 +94,7 @@ const Index = () => {
       }}
     >
       {/* Settings Button */}
-      <Dialog>
+      <Dialog open={settingsOpen} onOpenChange={setSettingsOpen}>
         <DialogTrigger asChild>
           <Button
             variant="ghost"
@@ -122,8 +123,8 @@ const Index = () => {
                 className="cursor-pointer"
               />
               <div className="flex gap-2">
-                <Button onClick={() => handleBgSave(bgInput)} className="flex-1">Apply URL</Button>
-                <Button variant="outline" onClick={() => { handleBgSave(""); setBgInput(""); }}>Reset</Button>
+                <Button onClick={() => { handleBgSave(bgInput); setSettingsOpen(false); }} className="flex-1">Apply URL</Button>
+                <Button variant="outline" onClick={() => { handleBgSave(""); setBgInput(""); setSettingsOpen(false); }}>Reset</Button>
               </div>
             </div>
           </div>
